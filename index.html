@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" ng-app = 'KSTodoListTracker'>
+  <head>
+    <title>To-do for Cloud Computing</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="angular.min.js"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+    <style>
+      .emptyMessage {
+        font-weight: bold;
+        color: red;
+        font-size: 1.2em;
+      }
+      li {
+        margin-bottom: 7px;
+        font-size: 1.2em;
+      }
+      li > button {
+        margin-left: 6px;
+      }
+      button > span {
+        color: green;
+      }
+    </style>
+
+  </head>
+<body>
+  <div class="container">
+  <h1>To Do List - Cloud Computing</h1>
+    <div id="list1" class="col-md-6" ng-controller='ToDoListController as list1'>
+          <div class="row">
+       <h2>To Do:</h2>
+       <form ng-submit="list1.addNewItem();list1.newItem='';list1.newItem2='';list1.run();" >
+       <input type="text" class="form-control" ng-model="list1.newItem" placeholder="What are you planning to do?" >
+        <input type="text" class="form-control" ng-model="list1.newItem2" placeholder="When are you planning to do it?" >
+           <input type="submit" class="btn btn-secondary">
+       </form>
+       <br>
+       <ul class="list-group">
+        <li class="list-group-item" ng-repeat="item in response" ng-if="item.status!='done'">
+          {{ item.what_to_do }} <strong>- for</strong> {{ item.due_date }}
+          <button type="button" class="btn btn-success btn-xs" ng-click="list1.log(item.name2);list1.completeToDoItem(item.what_to_do);">Mark as Complete</button>
+          <button type="button" class="btn btn-danger btn-xs" ng-click="list1.deleteToDoItem(item.what_to_do);">Delete</button>
+        </li>
+      </ul>
+              </div>
+        <div class="row">
+    <div id="list2" class="col-md-6">
+       <h2>Completed:</h2>
+       <ul class="list-group">
+        <li class="list-group-item" ng-repeat="item in response" ng-if="item.status=='done'">
+         	{{ item.what_to_do}}
+         	<button type="button" class="btn btn-danger btn-xs" ng-click="list1.deleteToDoItem(item.what_to_do);">Delete</button>
+        </li>
+      </ul>
+    </div>
+    </div>
+      </div>
+</body>
+</html>
